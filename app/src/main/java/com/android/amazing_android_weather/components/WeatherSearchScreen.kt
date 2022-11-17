@@ -110,7 +110,7 @@ fun WeatherSearchScreen(
                     horizontalAlignment = Alignment.End
                 ) {
                     Button(onClick = {
-
+                        navHostController.navigate(route = "${Screen.WeatherList.route}/${city.name}")
                     }) {
                         Icon(
                             imageVector = Icons.Filled.ArrowForward,

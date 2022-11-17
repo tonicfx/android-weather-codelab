@@ -18,6 +18,7 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
+import com.android.amazing_android_weather.components.SetupNavGraph
 import com.android.amazing_android_weather.components.WeatherSearchScreen
 import com.android.amazing_android_weather.ui.theme.AmazingandroidweatherTheme
 import com.android.amazing_android_weather.viewmodel.WeatherViewModel
@@ -30,14 +31,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             AmazingandroidweatherTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
-                    val navHostController = rememberNavController()
-                    WeatherSearchScreen(navHostController = navHostController)
-                }
+                val navHostController = rememberNavController()
+                SetupNavGraph(navHostController = navHostController)
             }
         }
     }
