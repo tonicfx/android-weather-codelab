@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">amazing-android-weather</string>
+
+    <!-- recherche -->
+    <string name="icn_go_to_details">Détails</string>
+    <string name="search_placeholder">Saisir une ville.</string>
+    <string name="search_processing_label">Recherche en cours...</string>
+    <string name="icn_search_clear_content_description">Annuler</string>
+
+    <!-- Details -->
+    <string name="details_city_label">Résultats pour la ville de %s</string>
+    <string name="details_hour_label">En ce moment à %sH</string>
+    <string name="details_infos_label">%1$.1f ° | %2$.1f pourcent d\'humidité</string>
+
+    <!-- home -->
+    <string name="entry_label">Tu hésites à aller à la plage ? \n Go regarder la météo !</string>
 </resources>

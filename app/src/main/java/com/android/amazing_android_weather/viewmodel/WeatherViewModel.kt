@@ -29,7 +29,7 @@ class WeatherViewModel(private val repository: WeatherRepositoryInterface) :
     private fun fetchWithFlow(city: String? = null, location: Location? = null) = flow {
         val flow = if (city != null) repository.fetchWeather(city) else repository.fetchWeather(
             location!!.latitude,
-            location!!.longitude$
+            location!!.longitude
         )
         flow.collect {
             val state = WeatherViewModelState(
