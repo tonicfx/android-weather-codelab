@@ -15,8 +15,15 @@ import androidx.navigation.navArgument
 fun SetupNavGraph(navHostController: NavHostController) {
     NavHost(
         navController = navHostController,
-        startDestination = Screen.WeatherSearch.route
+        startDestination = Screen.WeatherSplash.route
     ) {
+        composable(
+            route = Screen.WeatherSplash.route
+        ) {
+            SplashScreen(
+                navHostController = navHostController
+            )
+        }
         composable(
             route = Screen.WeatherSearch.route
         ) {
@@ -37,6 +44,7 @@ fun SetupNavGraph(navHostController: NavHostController) {
 }
 
 sealed class Screen(val route: String) {
+    object WeatherSplash: Screen("WeatherSplash")
     object WeatherSearch : Screen("WeatherSearch")
     object WeatherList : Screen("WeatherList")
 }
