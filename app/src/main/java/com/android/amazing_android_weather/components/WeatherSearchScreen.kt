@@ -40,6 +40,8 @@ fun WeatherSearchScreen(
 
     val weatherViewModel = getViewModel<WeatherViewModel>()
 
+    var locationSearching by remember { mutableStateOf(false) }
+
     var state by remember {
         mutableStateOf(WeatherViewModelState())
     }
@@ -62,6 +64,16 @@ fun WeatherSearchScreen(
                     onClearClick = {
                         text = ""
                         state = WeatherViewModelState()
+                    },
+                    onLocateSearching = {
+                        locationSearching = it
+                    },
+                    onLocateChange = {
+                        CoroutineScope(Dispatchers.IO).launch {
+                            weatherViewModel.locationChanged(it).collect {
+                                state = it
+                            }
+                        }
                     }
                 )
             })
@@ -76,7 +88,7 @@ fun WeatherSearchScreen(
                     })
                 }
         ) {
-            if (state.isLoading) {
+            if (state.isLoading || locationSearching) {
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier
@@ -86,7 +98,11 @@ fun WeatherSearchScreen(
                     CircularProgressIndicator()
                     Text(
                         text = stringResource(
-                            id = R.string.search_processing_label
+                            id =  if (state.isLoading) {
+                                R.string.search_processing_label
+                            } else {
+                                R.string.localisation_processing_label
+                            }
                         )
                     )
                 }

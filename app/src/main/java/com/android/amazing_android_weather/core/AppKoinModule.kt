@@ -1,10 +1,14 @@
 package com.android.amazing_android_weather.core
 
 import android.util.Log
+import com.android.amazing_android_weather.WeatherApplication
 import com.android.amazing_android_weather.repository.WeatherRepository
 import com.android.amazing_android_weather.repository.WeatherRepositoryInterface
 import com.android.amazing_android_weather.services.OpenWeatherApi
+import com.android.amazing_android_weather.viewmodel.LocationViewModel
 import com.android.amazing_android_weather.viewmodel.WeatherViewModel
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import io.ktor.client.*
 import io.ktor.client.engine.*
 import io.ktor.client.engine.android.*
@@ -19,10 +23,17 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
+private inline val requireApplication
+    get() = WeatherApplication.instance ?: error("Missing call: initWith(application)")
+
 val appModule = module {
     single<String>(named("weather_api_key")) { "888f70e84a4d7e44f3c0d4870c926e9d" }
     viewModel { WeatherViewModel(repository = get()) }
+
+    single<FusedLocationProviderClient> { LocationServices.getFusedLocationProviderClient(requireApplication.applicationContext) }
+    viewModel { LocationViewModel(client =  get()) }
 }
+
 val commonModule = module {
     single { Android.create() }
     single { createJson() }

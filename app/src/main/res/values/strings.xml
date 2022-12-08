@@ -6,6 +6,7 @@
     <string name="search_placeholder">Saisir une ville.</string>
     <string name="search_processing_label">Recherche en cours...</string>
     <string name="icn_search_clear_content_description">Annuler</string>
+    <string name="localisation_processing_label">Localisation en cours...</string>
 
     <!-- home -->
     <string name="entry_label">Tu hésites à aller à la plage ? \n Go regarder la météo !</string>
@@ -20,4 +21,9 @@
     <string name="icn_search_back_content_description">Retour</string>
     <string name="icn_go_to_fav">Favoris</string>
     <string name="list_title_label">Météo heure par heure pour %s</string>
+
+    <!-- Localisation -->
+    <string name="icn_permission_icon_description">Me localiser</string>
+    <string name="permission_location_rationale">Pour te donner une météo précise, j\'ai besoin de connaître ta position.</string>
+
 </resources>
