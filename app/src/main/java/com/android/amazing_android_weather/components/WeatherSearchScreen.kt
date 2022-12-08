@@ -20,6 +20,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.android.amazing_android_weather.R
+import com.android.amazing_android_weather.viewmodel.CityViewModel
 import com.android.amazing_android_weather.viewmodel.WeatherViewModel
 import com.android.amazing_android_weather.viewmodel.WeatherViewModelState
 import kotlinx.coroutines.CoroutineScope
@@ -110,6 +111,13 @@ fun WeatherSearchScreen(
                 val city = state.city!!
                 val item = state.first!!
 
+                WeatherMap(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(10.dp)
+                        .weight(1f),
+                    viewModel = CityViewModel(city = city)
+                )
                 WeatherDetailsItem(
                     modifier = Modifier
                         .fillMaxWidth()

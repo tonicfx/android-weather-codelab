@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id "kotlinx-serialization"
+    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
 
 android {
@@ -91,4 +92,8 @@ dependencies {
 
     // Location
     implementation("com.google.android.gms:play-services-location:20.0.0")
+
+    // Map
+    implementation("com.google.maps.android:maps-compose:2.2.1")
+    implementation("com.google.android.gms:play-services-maps:18.0.2")
 }
