@@ -169,6 +169,20 @@ fun WeatherSearchScreen(
                             .padding(30.dp),
                         style = MaterialTheme.typography.h5,
                     )
+
+                    FavsList(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(30.dp),
+                        selectionChange = {
+                            text = it
+                            CoroutineScope(Dispatchers.IO).launch {
+                                weatherViewModel.cityChanged(text).collect {
+                                    state = it
+                                }
+                            }
+                        }
+                    )
                 }
             }
         }

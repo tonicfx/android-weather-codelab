@@ -1,10 +1,15 @@
 package com.android.amazing_android_weather.core
 
+import android.content.Context
 import android.util.Log
+import androidx.datastore.preferences.preferencesDataStore
 import com.android.amazing_android_weather.WeatherApplication
+import com.android.amazing_android_weather.repository.UserPreferencesRepositoryImpl
+import com.android.amazing_android_weather.repository.UserPreferencesRepositoryInterface
 import com.android.amazing_android_weather.repository.WeatherRepository
 import com.android.amazing_android_weather.repository.WeatherRepositoryInterface
 import com.android.amazing_android_weather.services.OpenWeatherApi
+import com.android.amazing_android_weather.viewmodel.FavViewModel
 import com.android.amazing_android_weather.viewmodel.LocationViewModel
 import com.android.amazing_android_weather.viewmodel.WeatherViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -26,12 +31,20 @@ import org.koin.dsl.module
 private inline val requireApplication
     get() = WeatherApplication.instance ?: error("Missing call: initWith(application)")
 
+private val Context.dataStore by preferencesDataStore(name = "user_preferences")
+
 val appModule = module {
     single<String>(named("weather_api_key")) { "888f70e84a4d7e44f3c0d4870c926e9d" }
     viewModel { WeatherViewModel(repository = get()) }
 
-    single<FusedLocationProviderClient> { LocationServices.getFusedLocationProviderClient(requireApplication.applicationContext) }
-    viewModel { LocationViewModel(client =  get()) }
+    single<FusedLocationProviderClient> {
+        LocationServices.getFusedLocationProviderClient(
+            requireApplication.applicationContext
+        )
+    }
+    viewModel { LocationViewModel(client = get()) }
+
+    viewModel { FavViewModel(get()) }
 }
 
 val commonModule = module {
@@ -41,6 +54,7 @@ val commonModule = module {
     single { CoroutineScope(Dispatchers.Default + SupervisorJob()) }
     single<WeatherRepositoryInterface> { WeatherRepository(get()) }
     single { OpenWeatherApi(get(), get(named("weather_api_key"))) }
+    single<UserPreferencesRepositoryInterface> { UserPreferencesRepositoryImpl(requireApplication.dataStore) }
 }
 
 fun createJson() = Json { isLenient = true; ignoreUnknownKeys = true }

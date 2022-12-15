@@ -21,15 +21,19 @@ fun WeatherDetailsItem(modifier: Modifier, city: WeatherCityDomain, item: Weathe
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth().padding(5.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(5.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
             Text(
-                text = stringResource(id = R.string.details_city_label, city.name)
+                text = stringResource(id = R.string.details_city_label, city.name),
+                modifier = Modifier.weight(2f),
             )
+            FavIcon(city = city, modifier = Modifier.weight(1f))
         }
-
+        
         Text(
             text = stringResource(id = R.string.details_hour_label, item.hour)
         )

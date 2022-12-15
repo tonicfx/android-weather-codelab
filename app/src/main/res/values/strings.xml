@@ -28,4 +28,8 @@
 
     <!-- map popup -->
     <string name="city_description">%s - %d habitants</string>
+
+    <!-- Favoris -->
+    <string name="fav_title_label">Mes recherches habituelles</string>
+    <string name="fav_icon_description">Ajouter / Supprimer des favoris</string>
 </resources>
