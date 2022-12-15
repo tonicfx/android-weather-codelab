@@ -1,9 +1,14 @@
 package com.android.amazing_android_weather.services
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import kotlinx.serialization.Serializable
 
+@Entity(tableName = "WeatherResult")
 @Serializable
 data class WeatherResultDto(
+    @PrimaryKey(autoGenerate = true)
+    val id: Int? = null,
     val city: WeatherCityDto? = null,
     val list: List<WeatherItemDto>? = listOf()
 )

@@ -8,6 +8,7 @@ import com.android.amazing_android_weather.repository.UserPreferencesRepositoryI
 import com.android.amazing_android_weather.repository.UserPreferencesRepositoryInterface
 import com.android.amazing_android_weather.repository.WeatherRepository
 import com.android.amazing_android_weather.repository.WeatherRepositoryInterface
+import com.android.amazing_android_weather.room.WeatherRoomDb
 import com.android.amazing_android_weather.services.OpenWeatherApi
 import com.android.amazing_android_weather.viewmodel.FavViewModel
 import com.android.amazing_android_weather.viewmodel.LocationViewModel
@@ -52,7 +53,10 @@ val commonModule = module {
     single { createJson() }
     single { createHttpClient(get(), get(), enableNetworkLogs = true) }
     single { CoroutineScope(Dispatchers.Default + SupervisorJob()) }
-    single<WeatherRepositoryInterface> { WeatherRepository(get()) }
+
+    val database by lazy { WeatherRoomDb.getDatabase(requireApplication) }
+
+    single<WeatherRepositoryInterface> { WeatherRepository(get(), database.weatherDao()) }
     single { OpenWeatherApi(get(), get(named("weather_api_key"))) }
     single<UserPreferencesRepositoryInterface> { UserPreferencesRepositoryImpl(requireApplication.dataStore) }
 }
